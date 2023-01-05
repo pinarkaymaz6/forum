@@ -11,7 +11,7 @@ env:
   ECR_REPOSITORY: pnka-forum-repository
   ECS_SERVICE: pnka-forum-service
   ECS_CLUSTER: pnka-forum-cluster
-  ECS_TASK_DEFINITION: "backend/src/pnka-forum-task-definition.json"
+  ECS_TASK_DEFINITION: "pnka-forum-task-definition.json"
   CONTAINER_NAME: pnka-forum-container
 
 permissions:
