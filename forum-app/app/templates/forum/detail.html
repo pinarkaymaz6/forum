@@ -1,0 +1,20 @@
+{% extends 'forum/base.html' %}
+{% block main_content %}
+<h1>{{post.title}}</h1>
+<p>{{post.content}}</p>
+{% if error_message %}
+    <p><strong>{{error_message}}</strong></p>
+{% endif %}
+<h4>Comments</h4>
+{% csrf_token %}
+{% for comment in post.comment_set.all %}
+    <li><b>{{comment.content}}</b></li>
+{% endfor %}
+    <form action="{% url 'forum:add_comment' post.id %}" method="post">
+        {% csrf_token %}
+
+        <textarea id="comment" name="comment" rows="2" cols="30" placeholder="Enter your comment here..."></textarea>
+        <input type="submit" value="Add" />
+    </form>
+
+{% endblock %}
