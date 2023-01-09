@@ -43,6 +43,9 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     needs: qa
     if: github.ref == 'refs/heads/main'
     environment: production
