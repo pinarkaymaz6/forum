@@ -1,8 +1,8 @@
-name: Deploy to Amazon ECS
+name: forum
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main"]
   pull_request:
     branches: ["main"]
 
@@ -47,7 +47,7 @@ jobs:
       id-token: write
       contents: read
     needs: qa
-    if: github.ref == 'refs/heads/main'
+#    if: github.ref == 'refs/heads/main'
     environment: production
 
     steps:
@@ -57,10 +57,8 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        role-to-assume: arn:aws:iam::214433688102:role/pnka-forum-github-actions-role
+        audience: sts.amazonaws.com
+        role-to-assume: arn:aws:iam::214433688102:role/pnka-forum-assume-role-with-web-identity
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
