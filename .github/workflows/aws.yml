@@ -1,8 +1,8 @@
-name: Deploy to Amazon ECS
+name: forum
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main"]
   pull_request:
     branches: ["main"]
 
@@ -43,11 +43,8 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     needs: qa
-    if: github.ref == 'refs/heads/main'
+#    if: github.ref == 'refs/heads/main'
     environment: production
 
     steps:
@@ -59,8 +56,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        role-to-assume: arn:aws:iam::214433688102:role/pnka-forum-github-actions-role
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR

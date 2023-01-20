@@ -1,6 +1,6 @@
 FROM python:3.10-slim-bullseye
 
-WORKDIR /backend
+WORKDIR /forum
 
 COPY requirements.txt ./requirements.txt
 
@@ -10,6 +10,10 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-COPY backend/src ./src
+COPY ./forum-app ./forum-app
 
-CMD ["python", "manage.py", "runserver", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 80
+
+# runs the production server
+ENTRYPOINT ["python", "./forum-app/manage.py"]
+CMD ["runserver", "0.0.0.0:80", "--skip-checks"]
