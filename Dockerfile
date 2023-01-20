@@ -12,4 +12,8 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 COPY ./forum-app ./forum-app
 
-CMD ["python", "/forum/forum-app/manage.py", "runserver"]
+EXPOSE 8000
+
+# runs the production server
+ENTRYPOINT ["python", "./forum-app/manage.py"]
+CMD ["runserver", "0.0.0.0:8000"]
